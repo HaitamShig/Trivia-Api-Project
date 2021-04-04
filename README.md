@@ -59,49 +59,49 @@ and then you can open the address 127.0.0.1:3000 on your browser to see the fron
 ERROR 400 : Bad Request
 
 - This error happens whenever the user want to use POST method in an endpoint and provides a badly formatted request
-
+```bash
 {
   "success": False,
   "error": 400,
   "message": "bad request"
 }
-
+```
 
 
 ERROR 404 : Resource Not Found
 
 - This error happens whenever the application doesn't find any data that matches what the user demands
-
+```bash
 {
   "success": False,
   "error": 404,
   "message": "resource not found"
 }
-
+```
 
 
 ERROR 422 : Unprocessable Entity
 
 - This error happens whenever the uses a POST method with an endpoint and provides a well formatted request with the required data, but this data can't be processed and should be changed
-
+```bash
 {
   "success": False,
   "error": 422,
   "message": "unprocessable entity"
 }
-
+```
 
 
 ERROR 500: Internal Server Error
 
 - This error happens when some problem occurs with the server which makes it unable to load the data that the user asked for
- 
+ ```bash
 {
   "success": False,
   "error": 500,
   "message": "internal server error"
 }
-
+```
 
 
 ### ENDPOINTS :
