@@ -206,8 +206,7 @@ class TriviaTestCase(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertEqual(data['success'], True)
 
-        # to avoid adding more than 5 questions to category sport because we want to keep it at 3 quetsions to test
-        # the quiz functionality
+        # to avoid adding more questions to the database multiple times if the test runs multiple times
         Question.query.filter(Question.answer == "Germany").delete()
 
 
@@ -242,8 +241,8 @@ class TriviaTestCase(unittest.TestCase):
     def test_play_game_less_than_5_questions(self):
         """test the method POST for the endpoint /quizzes if all the questions are less than 5 and are already asked """
         res = self.client().post('/quizzes', json={
-            "quiz_category": {'id': 4},
-            "previous_questions": [5, 9, 23]
+            "quiz_category": {'id': 1},
+            "previous_questions": [1,2,3]
         })
         data = json.loads(res.data)
 
