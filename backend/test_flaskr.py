@@ -130,7 +130,7 @@ class TriviaTestCase(unittest.TestCase):
     # ================================================================================
     def test_delete_questions(self):
         """test the method DELETE for the endpoint /questions/<id> to delete a question"""
-        id_to_delete = Question.query.one_or_none().id
+        id_to_delete = Question.query.first().id
 
         res = self.client().delete(f'/questions/{id_to_delete}')
         data = json.loads(res.data)
