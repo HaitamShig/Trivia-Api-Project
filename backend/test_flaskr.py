@@ -14,6 +14,12 @@ from models import setup_db, Question, Category
 ## 3) PLEASE MAKE SURE TO CHECK THE ID OF THE QUESTION TO DELETE IN THE TEST OF THE DELETE FUNCTIONALITY TO AVOID
 ## ANY KIND OF PROBLEM
 
+DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')
+DB_USER = os.getenv('DB_USER', 'postgres')
+DB_PASSWORD = os.getenv('DB_PASSWORD', 'postgres')
+DB_NAME = os.getenv('DB_NAME', 'trivia_test')
+DB_PATH = 'postgresql://{}:{}@{}/{}'.format(DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+
 class TriviaTestCase(unittest.TestCase):
     """This class represents the trivia test case"""
 
@@ -21,8 +27,8 @@ class TriviaTestCase(unittest.TestCase):
         """Define test variables and initialize app."""
         self.app = create_app()
         self.client = self.app.test_client
-        self.database_name = "trivia_test"
-        self.database_path = "postgresql://postgres:postgres@{}/{}".format('localhost:5432', self.database_name)
+        self.database_name = DB_NAME
+        self.database_path = DB_PATH
         setup_db(self.app, self.database_path)
 
         # binds the app to the current context
@@ -124,7 +130,9 @@ class TriviaTestCase(unittest.TestCase):
     # ================================================================================
     def test_delete_questions(self):
         """test the method DELETE for the endpoint /questions/<id> to delete a question"""
-        res = self.client().delete('/questions/14')
+        id_to_delete = Question.query.one_or_none().id
+
+        res = self.client().delete(f'/questions/{id_to_delete}')
         data = json.loads(res.data)
 
         self.assertEqual(res.status_code, 200)

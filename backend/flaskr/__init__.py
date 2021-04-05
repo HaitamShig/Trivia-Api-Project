@@ -14,11 +14,15 @@ QUESTIONS_PER_PAGE = 10
 def paginate(request, questions_list):
   """to structure the questions in multiple pages"""
   page = request.args.get('page', 1, type=int)
-  start = (page - 1) * QUESTIONS_PER_PAGE
-  end = start + QUESTIONS_PER_PAGE
-  formatted_questions = [ question.format() for question in questions_list]
-  questions_in_page = formatted_questions[start: end]
-  return questions_in_page
+  # start = (page - 1) * QUESTIONS_PER_PAGE
+  # end = start + QUESTIONS_PER_PAGE
+  current_index = page - 1
+
+  questions = \
+    Question.query.order_by(Question.id).limit(QUESTIONS_PER_PAGE).offset(current_index * QUESTIONS_PER_PAGE).all()
+  formatted_questions = [question.format() for question in questions]
+
+  return formatted_questions
 
 
 def create_app(test_config=None):
