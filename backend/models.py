@@ -3,9 +3,10 @@ from sqlalchemy import Column, String, Integer, create_engine
 from flask_sqlalchemy import SQLAlchemy
 import json
 
-# database_name = "trivia"
-#
-# database_path = "postgresql://postgres:postgres@{}/{}".format('localhost:5432', database_name)
+# VERY IMPORTANT:
+## 1) PLEASE MAKE SURE TO ADJUST THE DATABASE URI BECAUSE I HAD TO CHANGE IT TO MAKE IT WORK ON MY PC
+
+## 2) PLEASE MAKE SURE TO RESET THE DATABASE SO ALL THE TESTS WILL FUNCTION psql trivia < trivia.psql
 
 db = SQLAlchemy()
 DB_HOST = os.getenv('DB_HOST', '127.0.0.1:5432')
